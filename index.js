@@ -9,6 +9,8 @@ function onYouTubeIframeAPIReady() {
     rowvid.time = videoProps.time
     rowvid.speed = videoProps.speed
 
+    $('#youtube-url').attr('href', "https://www.youtube.com/watch?v=" + rowvid.id);
+
     player = new YT.Player('player', {
         height: '480',
         width: '853',
@@ -36,6 +38,10 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
+function rootUrl() {
+    return window.location.href.split('?')[0];
+}
+
 rowvid.init = function() {
 
     if (isVideoPropsInURL()) {
@@ -59,8 +65,7 @@ rowvid.init = function() {
         $("#choose-video form").submit(function(event) {
             videoFuzzy = $("#video-fuzzy").val()
             videoID = extractVideoID(videoFuzzy)
-            url = "/?v=" + videoID
-            window.location.href = url
+            window.location.href = rootUrl() + "?v=" + videoID;
             event.preventDefault();
         });
 
@@ -70,6 +75,7 @@ rowvid.init = function() {
 
     }
 
+    space = 32
     left = 37
     right = 39
 
@@ -80,6 +86,10 @@ rowvid.init = function() {
                 break;
             case right:
                 nextFrame()
+                break;
+            case space:
+                togglePause();
+                e.preventDefault();
                 break;
         }
     })
@@ -129,7 +139,8 @@ function isVideoPropsInURL() {
 }
 
 function updateUI() {
-    shareURL = "http://rowvid.com/?v="
+    shareURL = rootUrl()
+        + "?v="
         + rowvid.id
         + "&t="
         + preciseRound(player.getCurrentTime(), 2)
@@ -147,6 +158,7 @@ function updateUI() {
     if (wasFocused) {
         $("#timer").select()
     }
+    $("#vid-title").text(player.getVideoData().title)
 }
 
 function preciseRound(num, decimals) {
@@ -247,6 +259,14 @@ function nextFrame() {
     updateUI();
 }
 
+function togglePause() {
+    if (player.getPlayerState() == 2) { // Player is paused
+        player.playVideo();
+    } else {
+        player.pauseVideo();
+    }
+}
+
 function prevFrame() {
     player.pauseVideo()
     currentTime = player.getCurrentTime()
@@ -269,10 +289,10 @@ function initDisqus() {
     
     window.disqus_config = function () {
         if( rowvid.id ) {
-            this.page.url = "http://rowvid.com/?v=" + rowvid.id;
+            this.page.url = rootUrl() + "?v=" + rowvid.id;
             this.page.identifier = "/?v=" + rowvid.id;
         }else{
-            this.page.url = "http://rowvid.com";
+            this.page.url = rootUrl();
             this.page.identifier = "";
         }
     };

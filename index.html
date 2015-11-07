@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RowVid</title>
-    <link rel="stylesheet" href="/foundation-5.1.1/css/foundation.css" />
-    <script src="/foundation-5.1.1/js/vendor/modernizr.js"></script>
+    <link rel="stylesheet" href="foundation-5.1.1/css/foundation.css" />
+    <script src="foundation-5.1.1/js/vendor/modernizr.js"></script>
 
     <meta name="description" content="Watch YouTube videos frame by frame and in slow motion">
     <meta name="author" content="RowVid">
 
-    <script src="/index.js"></script>
+    <script src="index.js"></script>
 
     <!-- start segment.io -->
     <script type="text/javascript">
@@ -34,7 +34,7 @@
         <nav class="top-bar" data-topbar>
           <ul class="title-area">
             <li class="name">
-              <h1><a href="/">RowVid</a></h1>
+              <h1><a href="">Oil Trainspotting</a></h1>
             </li>
             <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
           </ul>
@@ -45,12 +45,8 @@
             </ul>
 
             <!-- Left Nav Section -->
-            <ul class="left">
-                <li><a href="https://twitter.com/CalumJEadie">Contact</a></li>
-                <li><a href="https://github.com/CalumJEadie/rowvid.com">Contribute</a></li>
-            </ul>
           </section>
-        </nav>
+         </nav>
     </div>  
 
     <main>
@@ -94,6 +90,7 @@
             </div>
         </div>
 
+
         <div id="play-video" class="row" style="margin-top: 1rem; display: none;">
           <div class="column">
 
@@ -113,6 +110,12 @@
                         <div class="row">
                             <div class="column">
                                 <div class="button-bar">
+                                    <ul class="button-group">
+                                        <li>
+                                          <div style="font-size:9pt"><b>space</b> pause/unpause<br>
+                                          <b>arrows keys</b> single frame</div>
+                                        </li>
+                                    </ul>
                                     <ul class="button-group">
                                         <li>
                                             <input type="text" readonly="readonly" id="timer" size="6" style="height: 2.8rem; text-align: center;" />
@@ -148,22 +151,20 @@
                         </div>
                     </div>
 
-                    <div class="row collapse" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="row collapse">
                         <div class="column medium-3">
-                            <span class="prefix">SHARE YOUR CLIP</span>
+                            <span class="prefix" id="vid-title">...</span>
                         </div>
-                        <div class="column medium-7">
+                        <div class="column medium-9">
+                            <span class="prefix"><a href="foo" id="youtube-url">Click here</a> to record your counts at YouTube</span>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="column medium-3">
+                            <span class="prefix">BOOKMARK</span>
+                        </div>
+                        <div class="column medium-9">
                             <input id="share-url" type="url" readonly="readonly" onclick="this.select();">
-                        </div>
-                        <div class="column medium-2 text-right">
-                            <!-- AddThis Button BEGIN -->
-                            <div id="addthis" class="addthis_toolbox addthis_default_style addthis_32x32_style" style="display:inline-block; margin-top: 0.1rem;">
-                                <a class="addthis_button_twitter"></a>
-                                <a class="addthis_button_facebook"></a>
-                                <a class="addthis_button_compact"></a>
-                            </div>
-                            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52f4f26c01342a4e"></script>
-                            <!-- AddThis Button END -->
                         </div>
                     </div>
                         
@@ -173,18 +174,10 @@
           </div>
         </div><!-- end #play-video -->
 
-        <div class="row" style="margin-top: 1rem;">
-            <div class="column">
-
-                <div id="disqus_thread"></div>
-
-            </div>
-        </div>
-
     </main>
     
-    <script src="/foundation-5.1.1/js/vendor/jquery.js"></script>
-    <script src="/foundation-5.1.1/js/foundation.min.js"></script>
+    <script src="foundation-5.1.1/js/vendor/jquery.js"></script>
+    <script src="foundation-5.1.1/js/foundation.min.js"></script>
     <script>
       $(document).foundation();
 
@@ -234,5 +227,6 @@
         // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
         UserVoice.push(['autoprompt', {}]);
     </script>
+    <div style="font-size: 8pt;">&nbsp;Single-frame forward/back seems to work best using Firefox.  This page adapted from the single-frame YouTube viewer at <a href="rowvid.com">rowvid.com</a></div>
   </body>
 </html>
