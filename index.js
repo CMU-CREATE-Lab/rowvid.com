@@ -82,7 +82,6 @@ rowvid.init = function() {
     right = 39
 
     $('body').keydown(function(e) {
-        console.log('got it');
         switch(e.which) {
             case left:
                 prevFrame()
@@ -98,21 +97,6 @@ rowvid.init = function() {
                 break;
         }
     })
-    $('body').keypress(function(e) {
-        switch(e.which) {
-            case left:
-                e.preventDefault();
-                break;
-            case right:
-                e.preventDefault();
-                break;
-            case space:
-                e.preventDefault();
-                break;
-        }
-    })
-        
-
 }
 
 // 4. The API will call this function when the video player is ready.
@@ -181,7 +165,7 @@ function updateUI() {
 
     // Unfocus the youtube viewer so we can intercept spaces and arrows like we want
     if (document.activeElement == $('#player')[0]) {
-        document.activeElement = $('body')[0];
+        $('#player').blur();
     }
 }
 
@@ -292,7 +276,10 @@ function togglePause() {
 }
 
 function prevFrame() {
-    player.pauseVideo()
+    if (player.getPlayerState() == 1) { // Playing
+        player.playVideo();
+    }
+    console.log(player.getPlayerState());
     currentTime = player.getCurrentTime()
     framesPerSecond = 25 // worked out by quick profiling of videos using stats for nerd feature of player
     numFramesToAdvance = 1
