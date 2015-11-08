@@ -9,7 +9,8 @@ function onYouTubeIframeAPIReady() {
     rowvid.time = videoProps.time
     rowvid.speed = videoProps.speed
 
-    $('#youtube-url').attr('href', "https://www.youtube.com/watch?v=" + rowvid.id);
+    $('#youtube-url').attr('href', 'https://www.youtube.com/watch?v=' + rowvid.id);
+    $('#new-video-link').attr('href', rootUrl());
 
     player = new YT.Player('player', {
         height: '480',
@@ -20,7 +21,8 @@ function onYouTubeIframeAPIReady() {
         },
         playerVars: {
             'autohide': 1,
-            'autoplay': 0
+            'autoplay': 0,
+            'rel': 0 // don't show related videos at the end
         }
     });
 
@@ -79,13 +81,16 @@ rowvid.init = function() {
     left = 37
     right = 39
 
-    $(document).keydown(function(e) {
+    $('body').keydown(function(e) {
+        console.log('got it');
         switch(e.which) {
             case left:
                 prevFrame()
+                e.preventDefault();
                 break;
             case right:
                 nextFrame()
+                e.preventDefault();
                 break;
             case space:
                 togglePause();
@@ -93,6 +98,20 @@ rowvid.init = function() {
                 break;
         }
     })
+    $('body').keypress(function(e) {
+        switch(e.which) {
+            case left:
+                e.preventDefault();
+                break;
+            case right:
+                e.preventDefault();
+                break;
+            case space:
+                e.preventDefault();
+                break;
+        }
+    })
+        
 
 }
 
@@ -159,6 +178,11 @@ function updateUI() {
         $("#timer").select()
     }
     $("#vid-title").text(player.getVideoData().title)
+
+    // Unfocus the youtube viewer so we can intercept spaces and arrows like we want
+    if (document.activeElement == $('#player')[0]) {
+        document.activeElement = $('body')[0];
+    }
 }
 
 function preciseRound(num, decimals) {
